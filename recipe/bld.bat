@@ -1,1 +1,1 @@
-bash -lc build.sh
+bash "%RECIPE_DIR%\build.sh"
