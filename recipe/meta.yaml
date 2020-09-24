@@ -1,6 +1,9 @@
 {% set name = "coin-or-utils" %}
 {% set version = "2.11.4" %}
 
+{% set posix = 'm2-' if win else '' %}
+{% set native = 'm2w64-' if win else '' %}
+
 package:
   name: {{ name|lower }}
   version: {{ version }}
@@ -8,10 +11,9 @@ package:
 source:
   - url: https://github.com/coin-or/CoinUtils/archive/releases/{{ version }}.tar.gz
     sha256: d4effff4452e73356eed9f889efd9c44fe9cd68bd37b608a5ebb2c58bd45ef81
-
+  - 
 build:
   number: 0
-  skip: true  # [win]
   run_exports:
     - {{ pin_subpackage(name, max_pin='x.x') }}
 
@@ -19,9 +21,10 @@ requirements:
   build:
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
-    - {{ compiler('fortran') }}
-    - pkg-config
-    - make  # [unix]
+    # - {{ compiler('fortran') }}
+    - {{ posix }}pkg-config
+    - {{ posix }}make
+    - {{ posix }}sed
   host:
     - zlib
     - bzip2
