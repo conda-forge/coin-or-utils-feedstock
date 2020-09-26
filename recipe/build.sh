@@ -23,13 +23,20 @@ WITH_BLAS_LIB="-L${PREFIX}/lib -lblas"
 WITH_LAPACK_LIB="-L${PREFIX}/lib -llapack"
 
 
+if [ ! -z ${LIBRARY_PREFIX+x} ]; then
+    USE_PREFIX=$LIBRARY_PREFIX
+else
+    USE_PREFIX=$PREFIX
+fi
+
+
 if [[ $UNAME == *"MSYS"* ]]; then
-    WIN_FLAGS="--host=i686-w64-mingw32 --enable-msvc"
+    WIN_FLAGS="--build=x86_64-w64-mingw32 --enable-msvc"
 fi
 
 ./configure \
-    --prefix="${PREFIX}" \
-    --exec-prefix="${PREFIX}" \
+    --prefix="${USE_PREFIX}" \
+    --exec-prefix="${USE_PREFIX}" \
     --with-blas-lib="${WITH_BLAS_LIB}" \
     --with-lapack-lib="${WITH_LAPACK_LIB}" \
     ${WIN_FLAGS}
