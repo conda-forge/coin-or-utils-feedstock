@@ -22,12 +22,17 @@ export OPENBLAS_NUM_THREADS=1
 WITH_BLAS_LIB="-L${PREFIX}/lib -lblas"
 WITH_LAPACK_LIB="-L${PREFIX}/lib -llapack"
 
+
+if [[ $UNAME == *"MSYS"* ]]; then
+    WIN_FLAGS="--host=i686-w64-mingw32 --enable-msvc"
+fi
+
 ./configure \
     --prefix="${PREFIX}" \
     --exec-prefix="${PREFIX}" \
     --with-blas-lib="${WITH_BLAS_LIB}" \
     --with-lapack-lib="${WITH_LAPACK_LIB}" \
-    --enable-msvc
+    ${WIN_FLAGS}
 
 make -j "${CPU_COUNT}"
 make install
