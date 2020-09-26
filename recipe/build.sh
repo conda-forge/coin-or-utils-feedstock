@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 set -e
 
+# for win
+mkdir -p /tmp
+
 UNAME="$(uname)"
 export CFLAGS="${CFLAGS} -O3"
 export CXXFLAGS="${CXXFLAGS} -O3"
@@ -24,6 +27,7 @@ WITH_LAPACK_LIB="-L${PREFIX}/lib -llapack"
     --exec-prefix="${PREFIX}" \
     --with-blas-lib="${WITH_BLAS_LIB}" \
     --with-lapack-lib="${WITH_LAPACK_LIB}" \
+    --enable-msvc
 
 make -j "${CPU_COUNT}"
 make install

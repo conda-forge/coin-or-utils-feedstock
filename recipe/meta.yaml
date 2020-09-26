@@ -1,9 +1,6 @@
 {% set name = "coin-or-utils" %}
 {% set version = "2.11.4" %}
 
-{% set posix = 'm2-' if win else '' %}
-{% set native = 'm2w64-' if win else '' %}
-
 package:
   name: {{ name|lower }}
   version: {{ version }}
@@ -21,10 +18,12 @@ requirements:
   build:
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
-    # - {{ compiler('fortran') }}
-    - {{ posix }}pkg-config
-    - {{ posix }}make
-    - {{ posix }}sed
+    - {{ compiler('fortran') }}  # [unix]
+    - pkg-config                 # [unix]
+    - make                       # [unix]
+    - m2-pkg-config              # [win]
+    - m2-make                    # [win]
+    - m2-sed                     # [win]
   host:
     - zlib
     - bzip2
