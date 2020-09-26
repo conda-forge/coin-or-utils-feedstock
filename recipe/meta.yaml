@@ -24,6 +24,7 @@ requirements:
     - m2-pkg-config              # [win]
     - m2-make                    # [win]
     - m2-sed                     # [win]
+    - m2-grep                    # [win]
   host:
     - zlib
     - bzip2
