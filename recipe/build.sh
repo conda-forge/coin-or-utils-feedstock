@@ -19,14 +19,16 @@ fi
 # value at run-time to get the expected amount of parallelism.
 export OPENBLAS_NUM_THREADS=1
 
-WITH_BLAS_LIB="-L${PREFIX}/lib -lblas"
-WITH_LAPACK_LIB="-L${PREFIX}/lib -llapack"
 
 
 if [ ! -z ${LIBRARY_PREFIX+x} ]; then
     USE_PREFIX=$LIBRARY_PREFIX
+    WITH_BLAS_LIB="-L${LIBRARY_PREFIX}/lib -lblas"
+    WITH_LAPACK_LIB="-L${LIBRARY_PREFIX}/lib -llapack"
 else
     USE_PREFIX=$PREFIX
+    WITH_BLAS_LIB="-L${PREFIX}/lib -lblas"
+    WITH_LAPACK_LIB="-L${PREFIX}/lib -llapack"
 fi
 
 
