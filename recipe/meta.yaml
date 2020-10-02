@@ -10,8 +10,7 @@ source:
     sha256: d4effff4452e73356eed9f889efd9c44fe9cd68bd37b608a5ebb2c58bd45ef81
 
 build:
-  number: 0
-  skip: true  # [win]
+  number: 1
   run_exports:
     - {{ pin_subpackage(name, max_pin='x.x') }}
 
@@ -19,9 +18,13 @@ requirements:
   build:
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
-    - {{ compiler('fortran') }}
-    - pkg-config
-    - make  # [unix]
+    - {{ compiler('fortran') }}  # [unix]
+    - pkg-config                 # [unix]
+    - make                       # [unix]
+    - m2-pkg-config              # [win]
+    - m2-make                    # [win]
+    - m2-sed                     # [win]
+    - m2-grep                    # [win]
   host:
     - zlib
     - bzip2
