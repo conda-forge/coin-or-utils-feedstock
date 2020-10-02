@@ -39,8 +39,8 @@ fi
 ./configure \
     --prefix="${USE_PREFIX}" \
     --exec-prefix="${USE_PREFIX}" \
-    --with-blas-lib="${WITH_BLAS_LIB}" \
-    --with-lapack-lib="${WITH_LAPACK_LIB}" \
+    --with-blas="${WITH_BLAS_LIB}" \
+    --with-lapack="${WITH_LAPACK_LIB}" \
     ${WIN_FLAGS}
 
 make -j "${CPU_COUNT}"
