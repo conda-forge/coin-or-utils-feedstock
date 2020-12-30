@@ -31,7 +31,7 @@ fi
 
 
 if [[ $UNAME == *"MSYS"* ]]; then
-    WIN_FLAGS="--build=x86_64-w64-mingw32 --enable-msvc"
+    WIN_FLAGS="F77=flang --build=x86_64-w64-mingw32 --enable-msvc"
 fi
 
 ./configure \
