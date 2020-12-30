@@ -46,10 +46,10 @@ def verify_config(ns):
     else:
         raise ValueError("config " + ns.config + " is not valid")
     # Remove the following, as implemented
-    if not ns.config.startswith("linux"):
-        raise ValueError(
-            f"only Linux configs currently supported, got {ns.config}"
-        )
+    # if not ns.config.startswith("linux"):
+    #    raise ValueError(
+    #        f"only Linux configs currently supported, got {ns.config}"
+    #    )
 
 
 def main(args=None):
