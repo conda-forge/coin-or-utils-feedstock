@@ -1,18 +1,18 @@
 {% set name = "coin-or-utils" %}
-{% set version = "2.11.4" %}
+{% set version = "2.11.5" %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-    url: https://github.com/coin-or/CoinUtils/archive/releases/{{ version }}.tar.gz
-    sha256: d4effff4452e73356eed9f889efd9c44fe9cd68bd37b608a5ebb2c58bd45ef81
-    patches:
-      - 0001-Patch-for-downstream.patch
+  url: https://github.com/coin-or/CoinUtils/archive/releases/{{ version }}.tar.gz
+  sha256: 771a5647e5fd42e8974b9a56b3edb380a1346c3d3cca1a4262ec02e45ecd9fa9
+  patches:
+    - 0001-Patch-for-downstream.patch
 
 build:
-  number: 3
+  number: 0
   skip: true  # [win]
   run_exports:
     - {{ pin_subpackage(name, min_pin='x.x', max_pin='x.x') }}
@@ -46,7 +46,7 @@ about:
   license: EPL-2.0
   license_family: OTHER
   license_file: LICENSE
-  summary: 'COIN-OR Utilities (CoinUtils)'
+  summary: COIN-OR Utilities (CoinUtils)
   description: |
     CoinUtils (Coin-OR Utilities) is an open-source collection of classes and
     functions that are generally useful to more than one COIN-OR project. These
