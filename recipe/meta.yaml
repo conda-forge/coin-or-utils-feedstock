@@ -1,5 +1,5 @@
 {% set name = "coin-or-utils" %}
-{% set version = "2.11.8" %}
+{% set version = "2.11.9" %}
 
 package:
   name: {{ name|lower }}
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://github.com/coin-or/CoinUtils/archive/releases/{{ version }}.tar.gz
-  sha256: 202e347d1c1d2ccf5355e3c2874a4dc16500226c180b00d6677f464d80be337e
+  sha256: 15d572ace4cd3b7c8ce117081b65a2bd5b5a4ebaba54fadc99c7a244160f88b8
   patches:
     - 0001-Patch-for-downstream.patch
 
