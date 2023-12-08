@@ -1,13 +1,10 @@
 #!/usr/bin/env bash
-# Get an updated config.sub and config.guess
-cp $BUILD_PREFIX/share/gnuconfig/config.* ./CoinUtils
-cp $BUILD_PREFIX/share/gnuconfig/config.* .
 set -e
 
+# for win
+mkdir -p /tmp
+
 UNAME="$(uname)"
-export CFLAGS="${CFLAGS} -O3"
-export CXXFLAGS="${CXXFLAGS} -O3"
-export CXXFLAGS="${CXXFLAGS//-std=c++17/-std=c++11}"
 
 if [ "${UNAME}" == "Linux" ]; then
     export FLIBS="-lgcc_s -lgcc -lstdc++ -lm"
@@ -19,14 +16,30 @@ fi
 # value at run-time to get the expected amount of parallelism.
 export OPENBLAS_NUM_THREADS=1
 
-WITH_BLAS_LIB="-L${PREFIX}/lib -lblas"
-WITH_LAPACK_LIB="-L${PREFIX}/lib -llapack"
+if [ ! -z ${LIBRARY_PREFIX+x} ]; then
+    USE_PREFIX=$LIBRARY_PREFIX
+    WITH_BLAS_LIB="${LIBRARY_PREFIX}\lib\blas.lib"
+    WITH_LAPACK_LIB="${LIBRARY_PREFIX}\lib\lapack.lib"
+else
+    USE_PREFIX=$PREFIX
+    WITH_BLAS_LIB="-L${PREFIX}/lib -lblas"
+    WITH_LAPACK_LIB="-L${PREFIX}/lib -llapack"
+    export CFLAGS="${CFLAGS} -O3"
+    export CXXFLAGS="${CXXFLAGS} -O3"
+    export CXXFLAGS="${CXXFLAGS//-std=c++17/-std=c++11}"
+fi
+
+
+if [[ $UNAME == *"MSYS"* ]]; then
+    WIN_FLAGS="F77=flang --build=x86_64-w64-mingw32 --enable-msvc"
+fi
 
 ./configure \
-    --prefix="${PREFIX}" \
-    --exec-prefix="${PREFIX}" \
-    --with-blas-lib="${WITH_BLAS_LIB}" \
-    --with-lapack-lib="${WITH_LAPACK_LIB}" \
+    --prefix="${USE_PREFIX}" \
+    --exec-prefix="${USE_PREFIX}" \
+    --with-blas="${WITH_BLAS_LIB}" \
+    --with-lapack="${WITH_LAPACK_LIB}" \
+    ${WIN_FLAGS}
 
 make -j "${CPU_COUNT}"
 make install
