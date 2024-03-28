@@ -2,13 +2,11 @@
 set -e
 
 # for win
-if [[ $UNAME == *"MSYS"* ]]; then
+if [[ "${target_platform}" == win-* ]]; then
   /bin/mkdir -p /tmp
 fi
 
-UNAME="$(uname)"
-
-if [ "${UNAME}" == "Linux" ]; then
+if [[ "${target_platform}" == linux-* ]]; then
     export FLIBS="-lgcc_s -lgcc -lstdc++ -lm"
 fi
 
@@ -32,7 +30,7 @@ else
 fi
 
 
-if [[ $UNAME == *"MSYS"* ]]; then
+if [[ "${target_platform}" == win-* ]]; then
     WIN_FLAGS="F77=flang --build=x86_64-w64-mingw32 --enable-msvc"
 fi
 
