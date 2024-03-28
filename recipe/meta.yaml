@@ -12,19 +12,20 @@ source:
     - 0001-Patch-for-downstream.patch
 
 build:
-  number: 0
-  skip: true  # [win]
+  number: 1
   run_exports:
     - {{ pin_subpackage(name, min_pin='x.x', max_pin='x.x') }}
 
 requirements:
   build:
-    - gnuconfig  # [unix]
+    - gnuconfig
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
     - {{ compiler('fortran') }}
     - pkg-config
-    - make  # [unix]
+    - make
+    - m2-grep  # [win]
+    - m2-sed  # [win]
   host:
     - zlib
     - bzip2
@@ -37,9 +38,10 @@ requirements:
 
 test:
   commands:
-    - test -f $PREFIX/lib/libCoinUtils${SHLIB_EXT}
-    - test -f $PREFIX/include/coin/CoinSort.hpp
-
+    - test -f $PREFIX/lib/libCoinUtils${SHLIB_EXT}  # [unix]
+    - test -f $PREFIX/include/coin/CoinSort.hpp  # [unix]
+    - test -f %LIBRARY_BIN%\libCoinUtils${SHLIB_EXT}  # [win]
+    - test -f %LIBRARY_INC%\coin\CoinSort.hpp  # [win]
 about:
   home: https://projects.coin-or.org/CoinUtils
   dev_url: https://github.com/coin-or/CoinUtils
@@ -65,3 +67,4 @@ extra:
     - wolfv
     - tkralphs
     - jschueller
+    - brynpickering
