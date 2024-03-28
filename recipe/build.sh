@@ -2,7 +2,9 @@
 set -e
 
 # for win
-mkdir -p /tmp
+if [[ $UNAME == *"MSYS"* ]]; then
+  /bin/mkdir -p /tmp
+fi
 
 UNAME="$(uname)"
 
