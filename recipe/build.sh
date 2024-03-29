@@ -18,7 +18,7 @@ export OPENBLAS_NUM_THREADS=1
 
 if [ ! -z ${LIBRARY_PREFIX+x} ]; then
     USE_PREFIX=$LIBRARY_PREFIX
-    WITH_BLAS_LIB="${LIBRARY_PREFIX}\lib\blas.lib"
+    WITH_BLAS_LIB="${LIBRARY_PREFIX}\lib\cblas.lib"
     WITH_LAPACK_LIB="${LIBRARY_PREFIX}\lib\lapack.lib"
 else
     USE_PREFIX=$PREFIX
