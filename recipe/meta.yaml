@@ -34,7 +34,7 @@ requirements:
   host:
     - zlib
     - bzip2
-    - libblas
+    - libblas  # [not win]
     - libcblas
     - liblapack
     - liblapacke
