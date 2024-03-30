@@ -39,7 +39,7 @@ fi
     --exec-prefix="${USE_PREFIX}" \
     --with-blas="${WITH_BLAS_LIB}" \
     --with-lapack="${WITH_LAPACK_LIB}" \
-    ${WIN_FLAGS} || cat config.log
+    ${WIN_FLAGS} || cat CoinUtils\config.log
 
 make -j "${CPU_COUNT}"
 make install
