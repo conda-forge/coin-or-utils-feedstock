@@ -46,8 +46,8 @@ test:
   commands:
     - test -f $PREFIX/lib/libCoinUtils${SHLIB_EXT}  # [unix]
     - test -f $PREFIX/include/coin/CoinSort.hpp  # [unix]
-    - test -f %LIBRARY_BIN%\libCoinUtils${SHLIB_EXT}  # [win]
-    - test -f %LIBRARY_INC%\coin\CoinSort.hpp  # [win]
+    - if not exist %LIBRARY_LIB%/libCoinUtils.lib exit 1  # [win]
+    - if not exist %LIBRARY_INC%/coin/CoinSort.hpp exit 1  # [win]
 about:
   home: https://projects.coin-or.org/CoinUtils
   dev_url: https://github.com/coin-or/CoinUtils
