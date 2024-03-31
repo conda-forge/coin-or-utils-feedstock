@@ -26,7 +26,7 @@ else
     WITH_LAPACK_LIB="-L${PREFIX}/lib -llapack"
     export CFLAGS="${CFLAGS} -O3"
     export CXXFLAGS="${CXXFLAGS} -O3"
-    export CXXFLAGS="${CXXFLAGS//-std=c++17/-std=c++11}"
+    export CXXFLAGS="${CXXFLAGS} -std=c++11"
 fi
 
 
