@@ -11,7 +11,7 @@ if [[ "${target_platform}" == linux-* ]]; then
 fi
 
 if [[ "${target_platform}" == osx-arm64 ]]; then
-    export OSX_ARM_FLAGS="--host=aarch64-apple-darwin20"
+    export OSX_ARM_FLAGS="--host=arm-apple-darwin20"
 fi
 
 # Use only 1 thread with OpenBLAS to avoid timeouts on CIs.
