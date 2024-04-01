@@ -14,10 +14,6 @@ if [[ "${target_platform}" == linux-* ]]; then
     export FLIBS="-lgcc_s -lgcc -lstdc++ -lm"
 fi
 
-if [[ "${target_platform}" == osx-arm64 ]]; then
-    export OSX_ARM_FLAGS="--host=arm-apple-darwin20"
-fi
-
 # Use only 1 thread with OpenBLAS to avoid timeouts on CIs.
 # This should have no other affect on the build. A user
 # should still be able to set this (or not) to a different
