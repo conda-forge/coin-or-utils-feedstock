@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 set -e
 
-# for win
 if [[ "${target_platform}" == win-* ]]; then
   /bin/mkdir -p /tmp
 fi
