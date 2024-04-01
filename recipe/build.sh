@@ -43,8 +43,6 @@ fi
     --prefix="${USE_PREFIX}" \
     --exec-prefix="${USE_PREFIX}" \
     ${WIN_FLAGS} ${OSX_ARM_FLAGS} || cat CoinUtils/config.log
-    #--with-blas="${WITH_BLAS_LIB}" \
-    #--with-lapack="${WITH_LAPACK_LIB}" \
 
 make -j "${CPU_COUNT}"
 make install
