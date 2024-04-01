@@ -29,7 +29,6 @@ requirements:
     - m2-grep  # [win]
     - m2-sed  # [win]
     - m2-bash  # [win]
-    - m2-base  # [win]
     
   host:
     - zlib
