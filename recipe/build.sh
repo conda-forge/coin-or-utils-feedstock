@@ -1,13 +1,17 @@
 #!/usr/bin/env bash
 
-# Get an updated config.sub and config.guess 
-cp $BUILD_PREFIX/share/gnuconfig/config.* ./CoinUtils 
-cp $BUILD_PREFIX/share/gnuconfig/config.* .
-
 set -e
 
 if [[ "${target_platform}" == win-* ]]; then
-  /bin/mkdir -p /tmp
+  EXTRA_FLAGS="--enable-msvc"
+else
+  # Get an updated config.sub and config.guess (for mac arm and lnx aarch64)
+  cp $BUILD_PREFIX/share/gnuconfig/config.* ./. CoinUtils 
+  cp $BUILD_PREFIX/share/gnuconfig/config.* .
+
+  export CFLAGS="${CFLAGS} -O3" # avoid test failures
+  export CXXFLAGS="${CXXFLAGS} -O3" # avoid test failures
+  export CXXFLAGS="${CXXFLAGS} -std=c++11" # macOS clang defaults to cxx17 but coin uses old register keyword
 fi
 
 if [[ "${target_platform}" == linux-* ]]; then
@@ -24,20 +28,12 @@ if [ ! -z ${LIBRARY_PREFIX+x} ]; then
     USE_PREFIX=$LIBRARY_PREFIX
 else
     USE_PREFIX=$PREFIX
-    export CFLAGS="${CFLAGS} -O3"
-    export CXXFLAGS="${CXXFLAGS} -O3"
-    export CXXFLAGS="${CXXFLAGS} -std=c++11"
-fi
-
-
-if [[ "${target_platform}" == win-* ]]; then
-    WIN_FLAGS="--enable-msvc"
 fi
 
 ./configure \
     --prefix="${USE_PREFIX}" \
     --exec-prefix="${USE_PREFIX}" \
-    ${WIN_FLAGS} ${OSX_ARM_FLAGS} || cat CoinUtils/config.log
+    ${EXTRA_FLAGS} || cat CoinUtils/config.log
 
 make -j "${CPU_COUNT}"
 make install
