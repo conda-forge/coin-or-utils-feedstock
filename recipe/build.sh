@@ -6,7 +6,7 @@ if [[ "${target_platform}" == win-* ]]; then
   EXTRA_FLAGS="--enable-msvc"
 else
   # Get an updated config.sub and config.guess (for mac arm and lnx aarch64)
-  cp $BUILD_PREFIX/share/gnuconfig/config.* ./. CoinUtils 
+  cp $BUILD_PREFIX/share/gnuconfig/config.* ./CoinUtils 
   cp $BUILD_PREFIX/share/gnuconfig/config.* .
 
   export CFLAGS="${CFLAGS} -O3" # avoid test failures
