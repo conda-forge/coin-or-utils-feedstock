@@ -31,7 +31,7 @@ fi
 
 
 if [[ "${target_platform}" == win-* ]]; then
-    WIN_FLAGS="--build=x86_64-w64-mingw32 --enable-msvc"
+    WIN_FLAGS="--enable-msvc"
 fi
 
 ./configure \
