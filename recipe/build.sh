@@ -8,6 +8,7 @@ else
   # Get an updated config.sub and config.guess (for mac arm and lnx aarch64)
   cp $BUILD_PREFIX/share/gnuconfig/config.* ./CoinUtils 
   cp $BUILD_PREFIX/share/gnuconfig/config.* .
+  export CXXFLAGS="${CXXFLAGS} -std=c++11" # macOS clang defaults to cxx17 but coinutils 2.11.10 still has register kws
 fi
 
 if [[ "${target_platform}" == linux-* ]]; then
