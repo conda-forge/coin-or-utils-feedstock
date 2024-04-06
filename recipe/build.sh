@@ -33,4 +33,5 @@ fi
     ${EXTRA_FLAGS} || cat CoinUtils/config.log
 
 make -j "${CPU_COUNT}"
+make test
 make install
