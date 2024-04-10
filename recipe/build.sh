@@ -2,30 +2,36 @@
 
 set -e
 
-if [[ "${target_platform}" == win-* ]]; then
-  ls -la ${LIBRARY_PREFIX}/lib/
-  EXTRA_FLAGS="--enable-msvc"
-  BLAS_LIB="--with-blas-lib=\"${LIBRARY_PREFIX}/lib/cblas.lib\""
-else
-  # Get an updated config.sub and config.guess (for mac arm and lnx aarch64)
-  cp $BUILD_PREFIX/share/gnuconfig/config.* ./CoinUtils 
-  cp $BUILD_PREFIX/share/gnuconfig/config.* .
-  BLAS_LIB="--with-blas-lib=\"-L${PREFIX}/lib -lblas\""
-  LAPACK_LIB="--with-lapack-lib=\"-L${PREFIX}/lib -llapack\""
-fi
-
 if [ ! -z ${LIBRARY_PREFIX+x} ]; then
     USE_PREFIX=$LIBRARY_PREFIX
 else
     USE_PREFIX=$PREFIX
 fi
 
-./configure \
+if [[ "${target_platform}" == win-* ]]; then
+  ls -la ${LIBRARY_PREFIX}/lib/
+  EXTRA_FLAGS="--enable-msvc"
+  BLAS_LIB="${LIBRARY_PREFIX}/lib/cblas.lib"
+
+  ./configure \
     --prefix="${USE_PREFIX}" \
     --exec-prefix="${USE_PREFIX}" \
-    ${BLAS_LIB} \
-    ${LAPACK_LIB} \
+    --with-blas-lib="${BLAS_LIB}" \
     ${EXTRA_FLAGS} || cat CoinUtils/config.log
+else
+  # Get an updated config.sub and config.guess (for mac arm and lnx aarch64)
+  cp $BUILD_PREFIX/share/gnuconfig/config.* ./CoinUtils 
+  cp $BUILD_PREFIX/share/gnuconfig/config.* .
+  BLAS_LIB="-L${PREFIX}/lib -lblas"
+  LAPACK_LIB="-L${PREFIX}/lib -llapack"
+
+  ./configure \
+    --prefix="${USE_PREFIX}" \
+    --exec-prefix="${USE_PREFIX}" \
+    --with-blas-lib="${BLAS_LIB}" \
+    --with-lapack-lib="${LAPACK_LIB}" \
+    ${EXTRA_FLAGS} || cat CoinUtils/config.log
+fi
 
 make -j "${CPU_COUNT}"
 
