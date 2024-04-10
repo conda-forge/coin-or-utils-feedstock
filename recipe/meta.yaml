@@ -21,22 +21,22 @@ requirements:
     - gnuconfig
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
-    - {{ compiler('fortran') }} # [unix]
-    - pkg-config                # [unix]
-    - make                      # [unix]
-    - m2-make                   # [win]
-    - m2-pkg-config             # [win]
-    - m2-grep                   # [win]
-    - m2-sed                    # [win]
-    - m2-bash                   # [win]
-    - m2-base                   # [win]
+    - {{ compiler('fortran') }}  # [unix]
+    - pkg-config  # [unix]
+    - make  # [unix]
+    - m2-make  # [win]
+    - m2-pkg-config  # [win]
+    - m2-grep  # [win]
+    - m2-sed  # [win]
+    - m2-bash  # [win]
+    - m2-base  # [win]
     
   host:
     - blas-devel
-    - libblas                   # [unix]
+    - libblas  # [unix]
     - libcblas
-    - liblapack                 # [unix]
-    - liblapacke                # [unix]
+    - liblapack  # [unix]
+    - liblapacke  # [unix]
     - zlib
     - bzip2
   
