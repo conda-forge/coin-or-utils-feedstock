@@ -21,24 +21,19 @@ requirements:
     - gnuconfig
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
-    - {{ compiler('fortran') }}  # [not win]
-    - pkg-config  # [not win]
-    - make  # [not win]
-    - m2-make  # [win]
+    - pkg-config     # [unix]
+    - make           # [unix]
+    - m2-make        # [win]
     - m2-pkg-config  # [win]
-    - m2-grep  # [win]
-    - m2-sed  # [win]
-    - m2-bash  # [win]
-    - m2-base  # [win]
+    - m2-grep        # [win]
+    - m2-sed         # [win]
+    - m2-bash        # [win]
+    - m2-base        # [win]
     
   host:
     - zlib
     - bzip2
-    - blas  # for includes and .lib?
-    - libblas  # [not win]
-    - libcblas
-    - liblapack
-    - liblapacke
+  
   run_constrained:
     - coincbc * *_metapackage
 
