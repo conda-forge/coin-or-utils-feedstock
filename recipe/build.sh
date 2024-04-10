@@ -1,32 +1,30 @@
 #!/usr/bin/env bash
-# Get an updated config.sub and config.guess
-cp $BUILD_PREFIX/share/gnuconfig/config.* ./CoinUtils
-cp $BUILD_PREFIX/share/gnuconfig/config.* .
+
 set -e
 
-UNAME="$(uname)"
-export CFLAGS="${CFLAGS} -O3"
-export CXXFLAGS="${CXXFLAGS} -O3"
-export CXXFLAGS="${CXXFLAGS//-std=c++17/-std=c++11}"
-
-if [ "${UNAME}" == "Linux" ]; then
-    export FLIBS="-lgcc_s -lgcc -lstdc++ -lm"
+if [[ "${target_platform}" == win-* ]]; then
+  EXTRA_FLAGS="--enable-msvc"
+else
+  # Get an updated config.sub and config.guess (for mac arm and lnx aarch64)
+  cp $BUILD_PREFIX/share/gnuconfig/config.* ./CoinUtils 
+  cp $BUILD_PREFIX/share/gnuconfig/config.* .
 fi
 
-# Use only 1 thread with OpenBLAS to avoid timeouts on CIs.
-# This should have no other affect on the build. A user
-# should still be able to set this (or not) to a different
-# value at run-time to get the expected amount of parallelism.
-export OPENBLAS_NUM_THREADS=1
-
-WITH_BLAS_LIB="-L${PREFIX}/lib -lblas"
-WITH_LAPACK_LIB="-L${PREFIX}/lib -llapack"
+if [ ! -z ${LIBRARY_PREFIX+x} ]; then
+    USE_PREFIX=$LIBRARY_PREFIX
+else
+    USE_PREFIX=$PREFIX
+fi
 
 ./configure \
-    --prefix="${PREFIX}" \
-    --exec-prefix="${PREFIX}" \
-    --with-blas-lib="${WITH_BLAS_LIB}" \
-    --with-lapack-lib="${WITH_LAPACK_LIB}" \
+    --prefix="${USE_PREFIX}" \
+    --exec-prefix="${USE_PREFIX}" \
+    ${EXTRA_FLAGS} || cat CoinUtils/config.log
 
 make -j "${CPU_COUNT}"
+
+if [[ "$CONDA_BUILD_CROSS_COMPILATION" != "1" ]]; then
+  make test
+fi
+
 make install
