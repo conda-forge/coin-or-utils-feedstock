@@ -13,35 +13,38 @@ source:
 
 build:
   number: 0
-  skip: true  # [win]
   run_exports:
     - {{ pin_subpackage(name, min_pin='x.x', max_pin='x.x') }}
 
 requirements:
   build:
-    - gnuconfig  # [unix]
+    - gnuconfig
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
-    - {{ compiler('fortran') }}
-    - pkg-config
-    - make  # [unix]
+    - pkg-config     # [unix]
+    - make           # [unix]
+    - m2-make        # [win]
+    - m2-pkg-config  # [win]
+    - m2-grep        # [win]
+    - m2-sed         # [win]
+    - m2-bash        # [win]
+    - m2-base        # [win]
+    
   host:
     - zlib
     - bzip2
-    - libblas
-    - libcblas
-    - liblapack
-    - liblapacke
+  
   run_constrained:
     - coincbc * *_metapackage
 
 test:
   commands:
-    - test -f $PREFIX/lib/libCoinUtils${SHLIB_EXT}
-    - test -f $PREFIX/include/coin/CoinSort.hpp
-
+    - test -f $PREFIX/lib/libCoinUtils${SHLIB_EXT}  # [unix]
+    - test -f $PREFIX/include/coin/CoinSort.hpp  # [unix]
+    - if not exist %LIBRARY_LIB%/libCoinUtils.lib exit 1  # [win]
+    - if not exist %LIBRARY_INC%/coin/CoinSort.hpp exit 1  # [win]
 about:
-  home: https://projects.coin-or.org/CoinUtils
+  home: https://github.com/coin-or/CoinUtils
   dev_url: https://github.com/coin-or/CoinUtils
   license: EPL-2.0
   license_family: OTHER
@@ -65,3 +68,4 @@ extra:
     - wolfv
     - tkralphs
     - jschueller
+    - jpfeuffer
