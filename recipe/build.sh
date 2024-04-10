@@ -5,7 +5,7 @@ set -e
 if [[ "${target_platform}" == win-* ]]; then
   ls -la ${LIBRARY_PREFIX}/lib/
   EXTRA_FLAGS="--enable-msvc"
-  BLAS_LIB="--with-blas-lib=\"${LIBRARY_PREFIX}/lib/openblas.lib\""
+  BLAS_LIB="--with-blas-lib=\"${LIBRARY_PREFIX}/lib/cblas.lib\""
 else
   # Get an updated config.sub and config.guess (for mac arm and lnx aarch64)
   cp $BUILD_PREFIX/share/gnuconfig/config.* ./CoinUtils 
@@ -23,6 +23,8 @@ fi
 ./configure \
     --prefix="${USE_PREFIX}" \
     --exec-prefix="${USE_PREFIX}" \
+    ${BLAS_LIB} \
+    ${LAPACK_LIB} \
     ${EXTRA_FLAGS} || cat CoinUtils/config.log
 
 make -j "${CPU_COUNT}"
