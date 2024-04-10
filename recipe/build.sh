@@ -3,11 +3,15 @@
 set -e
 
 if [[ "${target_platform}" == win-* ]]; then
+  ls -la ${LIBRARY_PREFIX}/lib/
   EXTRA_FLAGS="--enable-msvc"
+  BLAS_LIB="--with-blas-lib=\"${LIBRARY_PREFIX}/lib/openblas.lib\""
 else
   # Get an updated config.sub and config.guess (for mac arm and lnx aarch64)
   cp $BUILD_PREFIX/share/gnuconfig/config.* ./CoinUtils 
   cp $BUILD_PREFIX/share/gnuconfig/config.* .
+  BLAS_LIB="--with-blas-lib=\"-L${PREFIX}/lib -lblas\""
+  LAPACK_LIB="--with-lapack-lib=\"-L${PREFIX}/lib -llapack\""
 fi
 
 if [ ! -z ${LIBRARY_PREFIX+x} ]; then
