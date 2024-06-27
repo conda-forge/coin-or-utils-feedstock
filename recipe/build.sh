@@ -34,6 +34,6 @@ if [[ "$CONDA_BUILD_CROSS_COMPILATION" != "1" ]]; then
 fi
 
 mkdir -p $PREFIX/include/CoinUtils
-cp src/*.h* $PREFIX/include/CoinUtils
+cp $SRC_DIR/CoinUtils/src/*.h* $PREFIX/include/CoinUtils
 
 make install
