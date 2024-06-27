@@ -33,4 +33,7 @@ if [[ "$CONDA_BUILD_CROSS_COMPILATION" != "1" ]]; then
   make test
 fi
 
+mkdir -p $PREFIX/include/CoinUtils
+cp src/*.h* $PREFIX/include/CoinUtils
+
 make install
