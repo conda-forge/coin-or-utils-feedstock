@@ -1,5 +1,5 @@
 {% set name = "coin-or-utils" %}
-{% set version = "2.11.11" %}
+{% set version = "2.11.12" %}
 
 package:
   name: {{ name|lower }}
@@ -7,12 +7,12 @@ package:
 
 source:
   url: https://github.com/coin-or/CoinUtils/archive/releases/{{ version }}.tar.gz
-  sha256: 27da344479f38c82112d738501643dcb229e4ee96a5f87d4f406456bdc1b2cb4
+  sha256: eef1785d78639b228ae2de26b334129fe6a7d399c4ac6f8fc5bb9054ba00de64
   patches:
     - 0001-Patch-for-downstream.patch
 
 build:
-  number: 1
+  number: 0
   run_exports:
     - {{ pin_subpackage(name, min_pin='x.x', max_pin='x.x') }}
 
@@ -31,7 +31,6 @@ requirements:
     - m2-sed  # [win]
     - m2-bash  # [win]
     - m2-base  # [win]
-    
   host:
     - blas-devel
     - libblas  # [unix]
@@ -40,7 +39,7 @@ requirements:
     - liblapacke  # [unix]
     - zlib
     - bzip2
-  
+
   run_constrained:
     - coincbc * *_metapackage
 
