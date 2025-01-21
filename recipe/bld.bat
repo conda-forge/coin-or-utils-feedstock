@@ -1,6 +1,6 @@
 @echo on
 
-./configure ^
+bash ./configure ^
     --prefix="%LIBRARY_PREFIX%" ^
     --exec-prefix="%LIBRARY_PREFIX%" ^
     --with-blas-lib="%LIBRARY_PREFIX%\lib\cblas.lib" ^
