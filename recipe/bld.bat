@@ -1,11 +1,18 @@
-copy "%RECIPE_DIR%\build.sh" .
-set PREFIX=%PREFIX:\=/%
-set LIBRARY_PREFIX=%LIBRARY_PREFIX:\=/%
-set SRC_DIR=%SRC_DIR:\=/%
-set MSYSTEM=MINGW%ARCH%
-set MSYS2_PATH_TYPE=inherit
-set CHERE_INVOKING=1
-set BUILD_PLATFORM=win-64
+@echo on
 
+bash ./configure ^
+    --prefix="%LIBRARY_PREFIX%" ^
+    --exec-prefix="%LIBRARY_PREFIX%" ^
+    --with-blas-lib="%LIBRARY_PREFIX%\lib\cblas.lib" ^
+    --with-lapack-lib="%LIBRARY_PREFIX%\lib\lapack.lib" ^
+    || cat CoinUtils/config.log
+if %ERRORLEVEL% neq 0 exit 1
 
-bash -lc "./build.sh"
+make -j "${CPU_COUNT}"
+if %ERRORLEVEL% neq 0 exit 1
+
+make test
+if %ERRORLEVEL% neq 0 exit 1
+
+make install
+if %ERRORLEVEL% neq 0 exit 1
