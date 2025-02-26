@@ -10,7 +10,7 @@ fi
 
 if [[ "${target_platform}" == win-* ]]; then
   BLAS_LIB=( --with-blas-lib='${LIBRARY_PREFIX}/lib/mkl_intel_ilp64.lib ${LIBRARY_PREFIX}/lib/mkl_sequential.lib ${LIBRARY_PREFIX}/lib/mkl_core.lib' )
-  LAPACK_LIB=(--with-lapack=yes )
+  LAPACK_LIB=(--with-lapack )
   EXTRA_FLAGS=( --enable-msvc )
 else
   # Get an updated config.sub and config.guess (for mac arm and lnx aarch64)
