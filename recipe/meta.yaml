@@ -35,10 +35,10 @@ requirements:
   host:
     - blas-devel
     - libblas  # [unix]
-    - libcblas # [unix]
-    - liblapack #[unix]
-    - liblapacke # [unix]
-    - mkl-static #[win]
+    - libcblas  # [unix]
+    - liblapack  #[unix]
+    - liblapacke  # [unix]
+    - mkl-static  #[win]
     - zlib
     - bzip2
 
