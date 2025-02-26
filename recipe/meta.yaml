@@ -36,9 +36,9 @@ requirements:
     - blas-devel
     - libblas  # [unix]
     - libcblas  # [unix]
-    - liblapack  #[unix]
+    - liblapack  # [unix]
     - liblapacke  # [unix]
-    - mkl-static  #[win]
+    - mkl-static  # [win]
     - zlib
     - bzip2
 
