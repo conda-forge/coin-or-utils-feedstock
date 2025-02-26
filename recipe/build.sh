@@ -24,9 +24,9 @@ fi
 ./configure \
   --prefix="${USE_PREFIX}" \
   --exec-prefix="${USE_PREFIX}" \
-  ${BLAS_LIB[@]} \
-  ${LAPACK_LIB[@]} \
-  ${EXTRA_FLAGS[@]} || cat CoinUtils/config.log
+  "${BLAS_LIB[@]}" \
+  "${LAPACK_LIB[@]}" \
+  "${EXTRA_FLAGS[@]}" || cat CoinUtils/config.log
 
 make -j "${CPU_COUNT}"
 
