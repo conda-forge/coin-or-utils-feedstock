@@ -9,7 +9,7 @@ else
 fi
 
 if [[ "${target_platform}" == win-* ]]; then
-  BLAS_LIB=( --with-blas-lib='-L${PREFIX}/lib -lmkl_rt' )
+  BLAS_LIB=( --with-blas-lib='-L${LIBRARY_PREFIX}/lib -lmkl_rt' )
   LAPACK_LIB=( --with-lapack-lib='' )
   EXTRA_FLAGS=( --enable-msvc=MD )
 else
