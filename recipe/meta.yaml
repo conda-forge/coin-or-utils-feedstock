@@ -15,7 +15,6 @@ build:
   number: 3
   run_exports:
     - {{ pin_subpackage(name, min_pin='x.x', max_pin='x.x') }}
-    - mkl-static  # [win]
 
 requirements:
   build:
@@ -38,7 +37,7 @@ requirements:
     - libcblas  # [unix]
     - liblapack  # [unix]
     - liblapacke  # [unix]
-    - mkl-static  # [win]
+    - mkl  # [win]
     - zlib
     - bzip2
 
